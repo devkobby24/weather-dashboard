@@ -24,6 +24,8 @@ router.get("/:city", async (req, res) => {
       return res.status(404).json({ error: "City not found" });
     }
 
+    // console.log(geoResponse.data);
+
     const { lat, lon } = geoResponse.data[0];
 
     // Current weather
