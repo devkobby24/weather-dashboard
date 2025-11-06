@@ -2,6 +2,41 @@ import { Router } from "express";
 import axios from "axios";
 import dotenv from "dotenv";
 
+interface ForecastItem {
+  time: string;
+  temp: number;
+  description: string;
+}
+
+interface WeatherResult {
+  city: string;
+  temperature: number;
+  weather: string;
+  forecast: ForecastItem[];
+}
+
+interface CurrentWeatherData {
+  name: string;
+  main: {
+    temp: number;
+  };
+  weather: Array<{
+    description: string;
+  }>;
+}
+
+interface ForecastData {
+  list: Array<{
+    dt_txt: string;
+    main: {
+      temp: number;
+    };
+    weather: Array<{
+      description: string;
+    }>;
+  }>;
+}
+
 dotenv.config();
 
 const router = Router();
@@ -38,54 +73,21 @@ router.get("/:city", async (req, res) => {
       params: { lat, lon, appid: API_KEY, units: "metric" },
     });
 
-    interface ForecastItem {
-      time: string;
-      temp: number;
-      description: string;
-    }
-
-    interface WeatherResult {
-      city: string;
-      temperature: number;
-      weather: string;
-      forecast: ForecastItem[];
-    }
-
-    interface CurrentWeatherData {
-      name: string;
-      main: {
-      temp: number;
-      };
-      weather: Array<{
-      description: string;
-      }>;
-    }
-
-    interface ForecastData {
-      list: Array<{
-      dt_txt: string;
-      main: {
-        temp: number;
-      };
-      weather: Array<{
-        description: string;
-      }>;
-      }>;
-    }
-
     const result: WeatherResult = {
       city: (currentWeather.data as CurrentWeatherData).name,
       temperature: (currentWeather.data as CurrentWeatherData).main.temp,
-      weather: (currentWeather.data as CurrentWeatherData).weather[0].description,
-      forecast: (forecast.data as ForecastData).list.slice(0, 5).map((item): ForecastItem => ({
-      time: item.dt_txt,
-      temp: item.main.temp,
-      description: item.weather[0].description
-      }))
+      weather: (currentWeather.data as CurrentWeatherData).weather[0]
+        .description,
+      forecast: (forecast.data as ForecastData).list.slice(0, 5).map(
+        (item): ForecastItem => ({
+          time: item.dt_txt,
+          temp: item.main.temp,
+          description: item.weather[0].description,
+        })
+      ),
     };
 
     return res.json(result);
-
   } catch (error: any) {
     return res.status(500).json({
       error: "Failed to fetch weather data",
