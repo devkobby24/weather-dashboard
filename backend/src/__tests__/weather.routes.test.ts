@@ -1,4 +1,4 @@
-import router from "./weather.routes";
+import router from "../routes/weather.routes";
 import axios from "axios";
 import request from "supertest";
 import express from "express";
