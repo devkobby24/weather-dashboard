@@ -87,19 +87,21 @@ const fetchWeather = async () => {
 .app {
   min-height: 100vh;
   background: #f5f5f5;
-  min-width: auto;
-  padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  padding-left: 14%;
+  padding-right: 14%;
 }
 
 .search-section {
+  width: 100%;
   padding: 30px 20px;
   background: #f5f5f5;
   border-bottom: 1px solid #e0e0e0;
 }
 
 .search-container {
-  max-width: 500px;
-  margin: 0 auto;
+  width: 100%;
   display: flex;
   gap: 10px;
 }
@@ -142,9 +144,9 @@ const fetchWeather = async () => {
 }
 
 .content {
-  max-width: 500px;
-  margin: 30px auto;
-  padding: 0 20px;
+  width: 100%;
+  flex: 1;
+  padding: 30px 20px;
 }
 
 .status {
@@ -172,16 +174,17 @@ const fetchWeather = async () => {
   padding: 24px;
   margin-bottom: 24px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-  display: flex;
-  flex-direction: row;
-  gap: 5px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: center;
 }
 
 .weather-header {
-  margin-right: 20px;
-  padding-right: 20px;
-  border-right: 1px solid #f0f0f0;
-  padding-bottom: 20px;
+  margin-right: 0;
+  padding-right: 0;
+  border-right: none;
+  padding-bottom: 0;
 }
 
 .city-name {
@@ -202,6 +205,7 @@ const fetchWeather = async () => {
   display: flex;
   align-items: flex-start;
   gap: 4px;
+  justify-content: flex-end;
 }
 
 .temp-value {
