@@ -107,8 +107,8 @@ const fetchWeather = async () => {
   background: #f5f5f5;
   display: flex;
   flex-direction: column;
-  padding-left: 14%;
-  padding-right: 14%;
+  padding-left: clamp(20px, 14%, 200px);
+  padding-right: clamp(20px, 14%, 200px);
 }
 
 .search-section {
