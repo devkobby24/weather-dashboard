@@ -89,7 +89,7 @@ const fetchWeather = async () => {
 
 .search-section {
   padding: 30px 20px;
-  background: white;
+  background: #f5f5f5;
   border-bottom: 1px solid #e0e0e0;
 }
 
