@@ -17,7 +17,7 @@ interface Weather {
   weather: string
 }
 
-const baseUrl = import.meta.env.BASE_URL;
+const baseUrl = import.meta.env.VITE_BASE_URL
 
 const city = ref('')
 const weather = ref<Weather | null>(null)
@@ -51,6 +51,7 @@ const fetchWeather = async () => {
       <div class="search-container">
         <input
           v-model="city"
+          @input="city = city.replace(/[^a-zA-Z\s]/g, '')"
           @keyup.enter="fetchWeather"
           placeholder="Search city..."
           class="search-input"
@@ -77,7 +78,7 @@ const fetchWeather = async () => {
         </div>
       </div>
 
-      <ForecastComponent v-if="weather" :forecast="weather.forecast || []"/>
+      <ForecastComponent v-if="weather" :forecast="weather.forecast || []" />
     </div>
   </div>
 </template>
@@ -87,6 +88,7 @@ const fetchWeather = async () => {
   min-height: 100vh;
   background: #f5f5f5;
   min-width: auto;
+  padding-bottom: 20px;
 }
 
 .search-section {
