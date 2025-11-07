@@ -31,7 +31,6 @@ const fetchWeather = async () => {
 
   try {
     const response = await axios.get(`http://localhost:5000/api/weather/${city.value}`)
-    console.log(response)
     weather.value = response.data
   } catch (err: unknown) {
     const axiosError = err as AxiosError<{ message: string }>
