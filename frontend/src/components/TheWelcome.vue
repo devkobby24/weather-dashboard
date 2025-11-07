@@ -11,7 +11,7 @@ setInterval(() => {
 <template>
   <div class="welcome-section">
     <h1>Weather Dashboard</h1>
-    <p class="subtitle">Get accurate weather forecasts for any city</p>
+    <p class="subtitle">Accurate weather forecasts for any city</p>
     <div class="time-display">{{ currentTime }}</div>
   </div>
 </template>

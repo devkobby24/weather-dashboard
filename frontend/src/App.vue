@@ -85,6 +85,7 @@ const fetchWeather = async () => {
 .app {
   min-height: 100vh;
   background: #f5f5f5;
+  min-width: auto;
 }
 
 .search-section {
@@ -168,11 +169,15 @@ const fetchWeather = async () => {
   padding: 24px;
   margin-bottom: 24px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
 }
 
 .weather-header {
-  margin-bottom: 20px;
-  border-bottom: 1px solid #f0f0f0;
+  margin-right: 20px;
+  padding-right: 20px;
+  border-right: 1px solid #f0f0f0;
   padding-bottom: 20px;
 }
 
