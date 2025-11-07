@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onUnmounted } from 'vue'
 
 const currentTime = ref(new Date().toLocaleTimeString())
 
-setInterval(() => {
+const intervalId = setInterval(() => {
   currentTime.value = new Date().toLocaleTimeString()
 }, 1000)
+
+onUnmounted(() => {
+  clearInterval(intervalId)
+})
 </script>
 
 <template>
