@@ -53,7 +53,7 @@ const fetchWeather = async () => {
           placeholder="Search city..."
           class="search-input"
         />
-        <button @click="fetchWeather" :disabled="city.length == 0" class="search-button">
+        <button @click="fetchWeather" :disabled="city.length === 0" class="search-button">
           Search
         </button>
       </div>
