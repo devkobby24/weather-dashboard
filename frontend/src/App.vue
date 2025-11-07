@@ -51,10 +51,11 @@ const fetchWeather = async () => {
       <div class="search-container">
         <input
           v-model="city"
-          @input="city = city.replace(/[^a-zA-Z\s]/g, '')"
+          @input="city = city.replace(/[^a-zA-Z\s\-]/g, '')"
           @keyup.enter="fetchWeather"
           placeholder="Search city..."
           class="search-input"
+          aria-label="Search for a city"
         />
         <button @click="fetchWeather" :disabled="city.length === 0" class="search-button">
           Search

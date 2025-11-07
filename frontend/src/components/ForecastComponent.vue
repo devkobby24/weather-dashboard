@@ -1,36 +1,37 @@
 <script setup lang="ts">
 interface ForecastItem {
-  time: string;
-  temp: number;
-  description: string;
+  time: string
+  temp: number
+  description: string
 }
 
 interface Props {
-  forecast: ForecastItem[];
+  forecast: ForecastItem[]
 }
 
 withDefaults(defineProps<Props>(), {
   forecast: () => [],
-});
+})
 
 const formatTime = (dateString: string): string => {
   try {
-    const date = new Date(dateString);
+    const date = new Date(dateString)
     return date.toLocaleString('en-US', {
       month: 'short',
       day: 'numeric',
       hour: '2-digit',
       minute: '2-digit',
       hour12: true,
-    });
-  } catch {
-    return dateString;
+    })
+  } catch (error) {
+    console.error('Error formatting date:', error, 'Input:', dateString)
+    return 'Invalid date'
   }
-};
+}
 
 const formatTemp = (temp: number): string => {
-  return `${Math.round(temp)}°C`;
-};
+  return `${Math.round(temp)}°C`
+}
 </script>
 
 <template>
