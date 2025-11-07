@@ -1,47 +1,99 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import { ref } from 'vue'
+import axios, { AxiosError } from 'axios'
 import TheWelcome from './components/TheWelcome.vue'
+
+interface Weather {
+  city: string
+  forecast: {
+    description: string
+    temp: string
+    time: string
+  }
+  temperature: number
+  weather: string
+}
+
+const city = ref('')
+const weather = ref<Weather | null>(null)
+const loading = ref(false)
+const error = ref('')
+
+const fetchWeather = async () => {
+  if (!city.value) return
+
+  loading.value = true
+  error.value = ''
+  weather.value = null
+
+  try {
+    const response = await axios.get(`http://localhost:5000/api/weather/${city.value}`)
+    console.log(response)
+    weather.value = response.data
+  } catch (err: unknown) {
+    const axiosError = err as AxiosError<{ message: string }>
+    error.value = axiosError.response?.data?.message || 'City not found!'
+  } finally {
+    loading.value = false
+  }
+}
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You're here now" />
-    </div>
-  </header>
-
-  <main>
+  <div class="container">
     <TheWelcome />
-  </main>
+
+    <input v-model="city" @keyup.enter="fetchWeather" placeholder="Enter city (ex: Accra)" />
+    <button @click="fetchWeather">Search</button>
+
+    <p v-if="loading">⏳ Loading weather...</p>
+    <p v-if="error" class="error">{{ error }}</p>
+
+    <div v-if="weather" class="weather-card">
+      <h2>{{ weather.city }}</h2>
+      <p><strong>Temperature:</strong> {{ weather.temperature }}°C</p>
+      <p class="description"><strong>Condition:</strong> {{ weather.weather }}</p>
+    </div>
+  </div>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
+.container {
+  max-width: 500px;
+  margin: auto;
+  text-align: center;
+  padding: 1rem;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+h2 {
+  color: black;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+input {
+  width: 70%;
+  padding: 8px;
+  margin-right: 8px;
+}
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+button {
+  padding: 8px 12px;
+  cursor: pointer;
+}
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+.weather-card {
+  background: #e3f2fd;
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  color: black;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+}
+
+.description {
+  color: black;
 }
 </style>
