@@ -36,7 +36,24 @@ const fetchWeather = async () => {
     weather.value = response.data
   } catch (err: unknown) {
     const axiosError = err as AxiosError<{ message: string }>
-    error.value = axiosError.response?.data?.message || 'City not found!'
+    if (axiosError.response) {
+      const status = axiosError.response.status;
+      if (axiosError.response.data?.message) {
+        error.value = axiosError.response.data.message;
+      } else if (status === 404) {
+        error.value = 'City not found!';
+      } else if (status === 429) {
+        error.value = 'API rate limit exceeded. Please try again later.';
+      } else if (status >= 500) {
+        error.value = 'Server error. Please try again later.';
+      } else {
+        error.value = `Error: ${status}`;
+      }
+    } else if (axiosError.request) {
+      error.value = 'Network error. Please check your connection.';
+    } else {
+      error.value = 'An unexpected error occurred.';
+    }
   } finally {
     loading.value = false
   }
