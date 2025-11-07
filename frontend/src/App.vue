@@ -17,6 +17,8 @@ interface Weather {
   weather: string
 }
 
+const baseUrl = import.meta.env.BASE_URL;
+
 const city = ref('')
 const weather = ref<Weather | null>(null)
 const loading = ref(false)
@@ -30,7 +32,7 @@ const fetchWeather = async () => {
   weather.value = null
 
   try {
-    const response = await axios.get(`http://localhost:5000/api/weather/${city.value}`)
+    const response = await axios.get(`${baseUrl}/api/weather/${city.value}`)
     weather.value = response.data
   } catch (err: unknown) {
     const axiosError = err as AxiosError<{ message: string }>
