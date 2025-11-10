@@ -10,7 +10,12 @@
     "test": "jest --coverage",
     "postbuild": "echo 'Build completed successfully'"
   },
-  "keywords": ["weather", "api", "express", "typescript"],
+  "keywords": [
+    "weather",
+    "api",
+    "express",
+    "typescript"
+  ],
   "author": "",
   "license": "ISC",
   "type": "commonjs",

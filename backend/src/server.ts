@@ -7,14 +7,14 @@ dotenv.config();
 const app = express();
 
 // CORS configuration for production
-const corsOptions = {
-  origin: process.env.NODE_ENV === 'production' 
-    ? ['https://devkobby24.github.io']
-    : '*',
-  credentials: true
-};
+// const corsOptions = {
+//   origin: process.env.NODE_ENV === 'production' 
+//     ? ['https://devkobby24.github.io']
+//     : '*',
+//   credentials: true
+// };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 app.use(express.json());
 
 // Health check endpoint
