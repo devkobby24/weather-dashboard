@@ -15,7 +15,7 @@ onUnmounted(() => {
 <template>
   <div class="welcome-section">
     <h1>Weather Dashboard</h1>
-    <p class="subtitle">Accurate weather forecasts for any city</p>
+    <p class="subtitle">Accurate weather forecasts for any city you search for</p>
     <div class="time-display">{{ currentTime }}</div>
   </div>
 </template>
