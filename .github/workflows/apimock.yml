@@ -20,12 +20,6 @@ jobs:
         with:
           node-version: 20
 
-      - name: Check directory structure
-        run: |
-          pwd
-          ls -la
-          ls -la backend/
-
       - name: Install dependencies
         run: |
           cd backend
